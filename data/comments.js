@@ -1,4 +1,4 @@
-exports.comments = [
+export const comments = [
   {
     "postId": 1,
     "id": 1,

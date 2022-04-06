@@ -1,19 +1,21 @@
-const {users} = require('./data/users.js');
-const {posts} = require('./data/posts.js');
-const {comments} = require('./data/comments.js');
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
 
-const express = require("express");
+import { users } from "./data/users.js";
+import { posts } from "./data/posts.js";
+import { comments } from "./data/comments.js";
 
-const cors = require('cors')
+const port = process.env.PORT || 5000;
+const app = express();
+
+dotenv.config();
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: process.env.FRONTEND_URL,
   credentials: true,
   optionsSuccessStatus: 200,
 }
-
-const port = 5000;
-const app = express();
 
 app.use(cors(corsOptions));
 
@@ -31,4 +33,6 @@ app.get("/comments", (req, res) => {
   res.status(200).json(comments)
 })
 
-app.listen(port, () => {})
+app.listen(port, () => {
+  console.log(`Listening on http://localhost:${port}`)
+})
