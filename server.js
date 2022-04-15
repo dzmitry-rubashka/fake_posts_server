@@ -6,7 +6,7 @@ import { users } from "./data/users.js";
 import { posts } from "./data/posts.js";
 import { comments } from "./data/comments.js";
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 const app = express();
 
 dotenv.config();
