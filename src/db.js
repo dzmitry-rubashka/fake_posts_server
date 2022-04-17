@@ -4,6 +4,13 @@ import fastcsv from "fast-csv";
 import { getTableStructure } from "./utils/getTableStructure.js";
 
 const { Pool } = pkg;
+const poolCreator = {
+  host: "localhost",
+  user: "postgres",
+  database: "example",
+  password: "root",
+  port: 5432,
+};
 
 const usersStream = fs.createReadStream("./base-data/users.csv");
 let usersData = [];
@@ -13,14 +20,7 @@ const csvUsersStream = fastcsv
     usersData.push(data);
   })
   .on("end", function () {
-    // create a new connection to the database
-    const pool = new Pool({
-      host: "localhost",
-      user: "postgres",
-      database: "qqq",
-      password: "root",
-      port: 5432,
-    });
+    const pool = new Pool(poolCreator); // create a new connection to the database
     const query = getTableStructure(usersData[0], "person");
     usersData.shift();
     pool.connect((err, client, done) => {
@@ -31,17 +31,12 @@ const csvUsersStream = fastcsv
             if (err) {
               console.log(err.stack);
             } else {
-              console.log("inserted " + res.rowCount + " row:", row);
+              // console.log("inserted " + res.rowCount + " row:", row);
             }
           });
         });
       } finally {
         done();
-        pool.query("SELECT * FROM person", (error, results) => {
-          if (error) {
-            throw error;
-          }
-        });
       }
     });
   });
@@ -52,18 +47,10 @@ let postsData = [];
 const csvPostsStream = fastcsv
   .parse({ delimiter: ";" })
   .on("data", function (data) {
-    console.log(data, 1111);
     postsData.push(data);
   })
   .on("end", function () {
-    // create a new connection to the database
-    const pool = new Pool({
-      host: "localhost",
-      user: "postgres",
-      database: "qqq",
-      password: "root",
-      port: 5432,
-    });
+    const pool = new Pool(poolCreator); // create a new connection to the database
     const query = getTableStructure(postsData[0], "post");
     postsData.shift();
     pool.connect((err, client, done) => {
@@ -74,17 +61,12 @@ const csvPostsStream = fastcsv
             if (err) {
               console.log(err.stack);
             } else {
-              console.log("inserted " + res.rowCount + " row:", row);
+              // console.log("inserted " + res.rowCount + " row:", row);
             }
           });
         });
       } finally {
         done();
-        pool.query("SELECT * FROM post", (error, results) => {
-          if (error) {
-            throw error;
-          }
-        });
       }
     });
   });
@@ -98,14 +80,7 @@ const csvCommentsStream = fastcsv
     commentsData.push(data);
   })
   .on("end", function () {
-    // create a new connection to the database
-    const pool = new Pool({
-      host: "localhost",
-      user: "postgres",
-      database: "qqq",
-      password: "root",
-      port: 5432,
-    });
+    const pool = new Pool(poolCreator); // create a new connection to the database
     const query = getTableStructure(commentsData[0], "comment");
     commentsData.shift();
     pool.connect((err, client, done) => {
@@ -116,17 +91,12 @@ const csvCommentsStream = fastcsv
             if (err) {
               console.log(err.stack);
             } else {
-              console.log("inserted " + res.rowCount + " row:", row);
+              // console.log("inserted " + res.rowCount + " row:", row);
             }
           });
         });
       } finally {
         done();
-        pool.query("SELECT * FROM comment", (error, results) => {
-          if (error) {
-            throw error;
-          }
-        });
       }
     });
   });
