@@ -7,12 +7,12 @@ const { Pool } = pkg;
 const poolCreator = {
   host: "localhost",
   user: "postgres",
-  database: "example",
+  database: "qweqwe1",
   password: "root",
   port: 5432,
 };
 
-const usersStream = fs.createReadStream("./base-data/users.csv");
+const usersStream = fs.createReadStream("./src/base-data/users.csv");
 let usersData = [];
 const csvUsersStream = fastcsv
   .parse({ delimiter: ";" })
@@ -42,7 +42,7 @@ const csvUsersStream = fastcsv
   });
 usersStream.pipe(csvUsersStream);
 
-const postsStream = fs.createReadStream("./base-data/posts.csv");
+const postsStream = fs.createReadStream("./src/base-data/posts.csv");
 let postsData = [];
 const csvPostsStream = fastcsv
   .parse({ delimiter: ";" })
@@ -72,7 +72,7 @@ const csvPostsStream = fastcsv
   });
 postsStream.pipe(csvPostsStream);
 
-const commentsStream = fs.createReadStream("./base-data/comments.csv");
+const commentsStream = fs.createReadStream("./src/base-data/comments.csv");
 let commentsData = [];
 const csvCommentsStream = fastcsv
   .parse({ delimiter: ";" })

@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS example;
-CREATE DATABASE example;
+DROP DATABASE IF EXISTS qweqwe1;
+CREATE DATABASE qweqwe1;
 -- move into the db
-\c example
+\c qweqwe1
 
 -- users table
 CREATE TABLE IF NOT EXISTS person(
@@ -27,9 +27,9 @@ CREATE TABLE IF NOT EXISTS post(
 -- comments table
 CREATE TABLE IF NOT EXISTS comment(
    postId INTEGER,
+   id SERIAL PRIMARY KEY,
    name TEXT,
    email TEXT,
    body TEXT,
-   id SERIAL PRIMARY KEY,
    FOREIGN KEY (postId) REFERENCES post (id)
 );
