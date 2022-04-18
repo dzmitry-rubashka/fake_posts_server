@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS fakepostsdb;
-CREATE DATABASE fakepostsdb;
+DROP DATABASE IF EXISTS fakepostsdb1;
+CREATE DATABASE fakepostsdb1;
 -- move into the db
-\c fakepostsdb
+\c fakepostsdb1
 
 -- users table
 CREATE TABLE IF NOT EXISTS person(
@@ -17,19 +17,19 @@ CREATE TABLE IF NOT EXISTS person(
 
 -- posts table
 CREATE TABLE IF NOT EXISTS post(
-   userId INTEGER,
+   userid INTEGER,
    id SERIAL PRIMARY KEY,
    title VARCHAR(255),
    body VARCHAR(255),
-   FOREIGN KEY (userId) REFERENCES person (id)
+   FOREIGN KEY (userid) REFERENCES person (id)
 );
 
 -- comments table
 CREATE TABLE IF NOT EXISTS comment(
-   postId INTEGER,
+   postid INTEGER,
    id SERIAL PRIMARY KEY,
    name TEXT,
    email TEXT,
    body TEXT,
-   FOREIGN KEY (postId) REFERENCES post (id)
+   FOREIGN KEY (postid) REFERENCES post (id)
 );
