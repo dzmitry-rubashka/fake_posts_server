@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS qweqwe1;
-CREATE DATABASE qweqwe1;
+DROP DATABASE IF EXISTS fakepostsdb;
+CREATE DATABASE fakepostsdb;
 -- move into the db
-\c qweqwe1
+\c fakepostsdb
 
 -- users table
 CREATE TABLE IF NOT EXISTS person(

@@ -22,7 +22,7 @@ const { Pool } = pkg;
 const pool = new Pool({
   host: "localhost",
   user: "postgres",
-  database: "qweqwe1",
+  database: "fakepostsdb",
   password: "root",
   port: 5432,
 });
