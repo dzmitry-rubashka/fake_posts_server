@@ -6,7 +6,7 @@ import { getTableStructure } from "./commonComponents/utils/getTableStructure.js
 import { pool } from "./commonComponents/dbPool.js";
 
 const { Pool } = pkg;
-const poolCreator = new Pool(pool);
+const poolCreator = pool;
 
 const usersStream = fs.createReadStream("./src/base-data/users.csv");
 let usersData = [];
