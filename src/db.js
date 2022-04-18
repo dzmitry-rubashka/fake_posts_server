@@ -1,16 +1,12 @@
 import fs from "fs";
 import pkg from "pg";
 import fastcsv from "fast-csv";
-import { getTableStructure } from "./utils/getTableStructure.js";
+
+import { getTableStructure } from "./commonComponents/utils/getTableStructure.js";
+import { pool } from "./commonComponents/dbPool";
 
 const { Pool } = pkg;
-const poolCreator = {
-  host: "localhost",
-  user: "postgres",
-  database: "fakepostsdb1",
-  password: "root",
-  port: 5432,
-};
+const poolCreator = new Pool(pool);
 
 const usersStream = fs.createReadStream("./src/base-data/users.csv");
 let usersData = [];
