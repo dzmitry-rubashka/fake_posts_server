@@ -3,7 +3,7 @@ import pkg from "pg";
 import fastcsv from "fast-csv";
 
 import { getTableStructure } from "./commonComponents/utils/getTableStructure.js";
-import { pool } from "./commonComponents/dbPool";
+import { pool } from "./commonComponents/dbPool.js";
 
 const { Pool } = pkg;
 const poolCreator = new Pool(pool);
