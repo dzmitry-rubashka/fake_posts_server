@@ -8,10 +8,9 @@ import { pool } from "./commonComponents/dbPool.js";
 const { Pool } = pkg;
 const poolCreator = pool;
 
-const usersStream = fs.createReadStream("./src/base-data/users.csv");
-let usersData = [];
-
 await new Promise((resolve) => {
+  const usersStream = fs.createReadStream("./src/base-data/users.csv");
+  let usersData = [];
   const csvUsersStream = fastcsv
     .parse({ delimiter: ";" })
     .on("data", function (data) {
