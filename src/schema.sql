@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS rockw;
-CREATE DATABASE rockw;
+DROP DATABASE IF EXISTS hey1123345;
+CREATE DATABASE hey1123345;
 -- move into the db
-\c rockw
+\c hey1123345
 
 -- users table`
 CREATE TABLE IF NOT EXISTS person(
