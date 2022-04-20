@@ -8,8 +8,8 @@ import commentsRouter from "./routes/commentsRoutes.js";
 
 dotenv.config();
 
-const port = 8080;
-const host = "localhost";
+const port = process.env.BEPORT || 8080;
+const host = process.env.HOST || "localhost";
 
 const app = express();
 const corsOptions = {

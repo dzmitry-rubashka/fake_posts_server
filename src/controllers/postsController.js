@@ -32,8 +32,9 @@ class PostsController {
   async updatePost(req, res) {
     const { userid, id, title, body } = req.body;
     const updatedPost = await poolCreator.query(
-      `UPDATE post set userid = $1, title = $2, body = $3 where id = $4 RETURNING *`,
-      [userid, id, title, body]
+      // `UPDATE post set userid = $1, title = $2, body = $3 where id = $4 RETURNING *`,
+      `UPDATE post set title = $1, body = $2 where id = $3 RETURNING *`,
+      [title, body, id]
     );
     res.json(updatedPost.rows[0]);
   }
