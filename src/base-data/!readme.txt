@@ -1,0 +1,1 @@
+You can find initial data (users, posts, comments) for seeding in this folder.

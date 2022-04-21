@@ -11,8 +11,7 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "fast-csv": "^4.3.6",
-    "pg": "^8.7.3",
-    "yarn": "^1.22.18"
+    "pg": "^8.7.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.15",
@@ -21,6 +20,7 @@
   "scripts": {
     "create-db": "psql -U postgres < src/schema.sql",
     "seed": "npm run create-db && Node src/db.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "nodemon": "nodemon src/server.js"
   }
 }

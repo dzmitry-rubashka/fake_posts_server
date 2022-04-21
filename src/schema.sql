@@ -3,7 +3,7 @@ CREATE DATABASE fakepostsdb;
 -- move into the db
 \c fakepostsdb
 
--- users table
+-- users table`
 CREATE TABLE IF NOT EXISTS person(
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
@@ -17,19 +17,19 @@ CREATE TABLE IF NOT EXISTS person(
 
 -- posts table
 CREATE TABLE IF NOT EXISTS post(
-   userId INTEGER,
-   id SERIAL PRIMARY KEY,
-   title VARCHAR(255),
-   body VARCHAR(255),
-   FOREIGN KEY (userId) REFERENCES person (id)
+    userid INTEGER,
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255),
+    body VARCHAR(255),
+    FOREIGN KEY (userid) REFERENCES person (id)
 );
 
 -- comments table
 CREATE TABLE IF NOT EXISTS comment(
-   postId INTEGER,
+   postid INTEGER,
    id SERIAL PRIMARY KEY,
    name TEXT,
    email TEXT,
    body TEXT,
-   FOREIGN KEY (postId) REFERENCES post (id)
+   FOREIGN KEY (postid) REFERENCES post (id)
 );
