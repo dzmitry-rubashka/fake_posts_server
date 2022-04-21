@@ -30,5 +30,13 @@ In the project directory, you can run:
 Runs the server in the development mode.\
 Open your local server to view it in your browser.
 
+### `npm run create-db`
+
+Database creating.
+
+### `npm run seed`
+
+Database creating and data seeding.
+
 ### Author
 Github: @dmitryrubashko
