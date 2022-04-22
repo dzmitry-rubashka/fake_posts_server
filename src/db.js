@@ -33,12 +33,45 @@ await new Promise((resolve) => {
             });
           });
         } finally {
+          resolve();
           done();
         }
-        resolve();
       });
     });
   usersStream.pipe(csvUsersStream);
+});
+
+await new Promise((resolve) => {
+  const companiesStream = fs.createReadStream("./src/base-data/companies.csv");
+  let companiesData = [];
+  const csvCompaniesStream = fastcsv
+    .parse({ delimiter: ";" })
+    .on("data", function (data) {
+      companiesData.push(data);
+    })
+    .on("end", function () {
+      const pool = new Pool(poolCreator); // create a new connection to the database
+      const query = getTableStructure(companiesData[0], "company");
+      companiesData.shift();
+      pool.connect((err, client, done) => {
+        if (err) throw err;
+        try {
+          companiesData.forEach((row) => {
+            client.query(query, row, (err, res) => {
+              if (err) {
+                console.log(err.stack);
+              } else {
+                // console.log("inserted " + res.rowCount + " row:", row);
+              }
+            });
+          });
+        } finally {
+          done();
+          resolve();
+        }
+      });
+    });
+  companiesStream.pipe(csvCompaniesStream);
 });
 
 await new Promise((resolve) => {
@@ -66,9 +99,9 @@ await new Promise((resolve) => {
             });
           });
         } finally {
+          resolve();
           done();
         }
-        resolve();
       });
     });
   postsStream.pipe(csvPostsStream);
@@ -100,8 +133,8 @@ await new Promise((resolve) => {
           });
         } finally {
           done();
+          resolve();
         }
-        resolve();
       });
     });
   commentsStream.pipe(csvCommentsStream);
