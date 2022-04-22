@@ -6,12 +6,12 @@ const { Pool } = pkg;
 const poolCreator = new Pool(pool);
 
 class UsersController {
-  //+
+  //++
   async getAllUsers(req, res) {
     const allUsers = await poolCreator.query(`SELECT * FROM person`);
     res.json(allUsers.rows);
   }
-  //+
+  //++
   async getOneUser(req, res) {
     const id = req.params.id;
     const oneUser = await poolCreator.query(
@@ -24,6 +24,7 @@ class UsersController {
   async createUser(req, res) {
     const { name, username, email, address, phone, website, company } =
       req.body;
+    console.log(req.body)
     const newUser = await poolCreator.query(
       `INSERT INTO person (name, username, email, address, phone, website, company) values ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
       [name, username, email, address, phone, website, company]

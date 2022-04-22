@@ -32,7 +32,6 @@ class CommentsController {
 
   async createComment(req, res) {
     const { postid, userid, name, email, body } = req.body;
-    console.log(req.body)
     const newComment = await poolCreator.query(
       `INSERT INTO comment (postid, userid, name, email, body) values ($1, $2, $3, $4, $5) RETURNING *`,
       [postid, userid, name, email, body]

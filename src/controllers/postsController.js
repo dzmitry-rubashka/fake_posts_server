@@ -6,12 +6,12 @@ const { Pool } = pkg;
 const poolCreator = new Pool(pool);
 
 class PostsController {
-  //+
+  //++
   async getAllPosts(req, res) {
     const allPosts = await poolCreator.query(`SELECT * FROM post`);
     res.json(allPosts.rows);
   }
-  //+
+  //++
   async getOnePost(req, res) {
     const id = req.params.id;
     const onePost = await poolCreator.query(
