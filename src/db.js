@@ -33,9 +33,9 @@ await new Promise((resolve) => {
             });
           });
         } finally {
+          resolve();
           done();
         }
-        resolve();
       });
     });
   usersStream.pipe(csvUsersStream);
@@ -66,9 +66,9 @@ await new Promise((resolve) => {
             });
           });
         } finally {
+          resolve();
           done();
         }
-        resolve();
       });
     });
   postsStream.pipe(csvPostsStream);
@@ -100,8 +100,8 @@ await new Promise((resolve) => {
           });
         } finally {
           done();
+          resolve();
         }
-        resolve();
       });
     });
   commentsStream.pipe(csvCommentsStream);

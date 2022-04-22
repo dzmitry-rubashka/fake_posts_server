@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS fakepostsdb;
-CREATE DATABASE fakepostsdb;
+DROP DATABASE IF EXISTS fakepostsdb41;
+CREATE DATABASE fakepostsdb41;
 -- move into the db
-\c fakepostsdb
+\c fakepostsdb41
 
 -- users table`
 CREATE TABLE IF NOT EXISTS person(
@@ -14,22 +14,22 @@ CREATE TABLE IF NOT EXISTS person(
     website VARCHAR(255),
     company JSON
 );
-
 -- posts table
 CREATE TABLE IF NOT EXISTS post(
     userid INTEGER,
     id SERIAL PRIMARY KEY,
     title VARCHAR(255),
     body VARCHAR(255),
-    FOREIGN KEY (userid) REFERENCES person (id)
+    FOREIGN KEY (userid) REFERENCES person (id) ON DELETE CASCADE
 );
-
 -- comments table
 CREATE TABLE IF NOT EXISTS comment(
-   postid INTEGER,
-   id SERIAL PRIMARY KEY,
-   name TEXT,
-   email TEXT,
-   body TEXT,
-   FOREIGN KEY (postid) REFERENCES post (id)
+    postid INTEGER,
+    userid INTEGER,
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    email TEXT,
+    body TEXT,
+    FOREIGN KEY (postid) REFERENCES post (id) ON DELETE CASCADE,
+    FOREIGN KEY (userid) REFERENCES person (id) ON DELETE CASCADE
 );
