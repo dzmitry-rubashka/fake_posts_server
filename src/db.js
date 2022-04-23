@@ -64,7 +64,6 @@ await new Promise((resolve) => {
                 console.log(err.stack);
               } else {
                 // console.log("inserted " + res.rowCount + " row:", row);
-                console.log(res.rows);
                 const userIdsArray = users_ids.split(",");
                 userIdsArray.forEach((user_id) => {
                   client.query(
