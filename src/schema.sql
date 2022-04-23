@@ -35,10 +35,10 @@
 --     FOREIGN KEY (userid) REFERENCES person (id) ON DELETE CASCADE
 -- );
 -- new version
-DROP DATABASE IF EXISTS fakepostsdb;
-CREATE DATABASE fakepostsdb;
+DROP DATABASE IF EXISTS fakepostsdb2;
+CREATE DATABASE fakepostsdb2;
 -- move into the db
-\c fakepostsdb
+\c fakepostsdb2
 
 -- users table
 CREATE TABLE IF NOT EXISTS person(
@@ -61,28 +61,28 @@ CREATE TABLE IF NOT EXISTS company(
 
 -- company-person table
 CREATE TABLE IF NOT EXISTS company_person(
-    userid INTEGER REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    companyid INTEGER REFERENCES company (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT company_person_key PRIMARY KEY (userid, companyid)
+    user_id INTEGER REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    company_id INTEGER REFERENCES company (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT company_person_key PRIMARY KEY (user_id, company_id)
 );
 
 -- posts table
 CREATE TABLE IF NOT EXISTS post(
-    userid INTEGER,
+    user_id INTEGER,
     id SERIAL PRIMARY KEY,
     title VARCHAR(255),
     body VARCHAR(255),
-    FOREIGN KEY (userid) REFERENCES person (id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES person (id) ON DELETE CASCADE
 );
 
 -- comments table
 CREATE TABLE IF NOT EXISTS comment(
-    postid INTEGER,
-    userid INTEGER,
+    post_id INTEGER,
+    user_id INTEGER,
     id SERIAL PRIMARY KEY,
     name TEXT,
     email TEXT,
     body TEXT,
-    FOREIGN KEY (postid) REFERENCES post (id) ON DELETE CASCADE,
-    FOREIGN KEY (userid) REFERENCES person (id) ON DELETE CASCADE
+    FOREIGN KEY (post_id) REFERENCES post (id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES person (id) ON DELETE CASCADE
 );

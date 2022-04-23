@@ -56,12 +56,20 @@ await new Promise((resolve) => {
       pool.connect((err, client, done) => {
         if (err) throw err;
         try {
-          companiesData.forEach((row) => {
-            client.query(query, row, (err, res) => {
+          companiesData.forEach((company) => {
+            const [users_ids, ...companyProps] = company;
+            client.query(query, companyProps, (err, company) => {
               if (err) {
-                console.log(err.stack);
+                console.log(err.stack, 12);
               } else {
                 // console.log("inserted " + res.rowCount + " row:", row);
+                const userIdsArray = users_ids.split(",");
+                userIdsArray.forEach(
+                  (user_id = companyProps[companyProps.length - 1]) => {
+                    `INSERT INTO company_person (company_id, user_id) values ($1, $2) RETURNING *`,
+                      [company.id, user_id];
+                  }
+                );
               }
             });
           });

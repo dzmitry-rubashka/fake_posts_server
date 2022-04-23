@@ -22,16 +22,16 @@ class PostsController {
   }
 
   async createPost(req, res) {
-    const { userid, title, body } = req.body;
+    const { user_id, title, body } = req.body;
     const newPost = await poolCreator.query(
-      `INSERT INTO post (userid, title, body) values ($1, $2, $3) RETURNING *`,
-      [userid, title, body]
+      `INSERT INTO post (user_id, title, body) values ($1, $2, $3) RETURNING *`,
+      [user_id, title, body]
     );
     res.json(newPost.rows[0]);
   }
 
   async updatePost(req, res) {
-    const { userid, id, title, body } = req.body;
+    const { user_id, id, title, body } = req.body;
     const updatedPost = await poolCreator.query(
       // `UPDATE post set userid = $1, title = $2, body = $3 where id = $4 RETURNING *`,
       `UPDATE post set title = $1, body = $2 where id = $3 RETURNING *`,
