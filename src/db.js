@@ -63,7 +63,7 @@ await new Promise((resolve) => {
               if (err) {
                 console.log(err.stack);
               } else {
-                // console.log("inserted " + res.rowCount + " row:", row);
+                // console.log("inserted " + res.rowCount + " row:", row)
                 const userIdsArray = users_ids.split(",");
                 userIdsArray.forEach((user_id) => {
                   client.query(
