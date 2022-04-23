@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS post(
     id SERIAL PRIMARY KEY,
     title VARCHAR(255),
     body VARCHAR(255),
-    FOREIGN KEY (user_id) REFERENCES person (id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 -- comments table
@@ -93,6 +93,6 @@ CREATE TABLE IF NOT EXISTS comment(
     name TEXT,
     email TEXT,
     body TEXT,
-    FOREIGN KEY (post_id) REFERENCES post (id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES person (id) ON DELETE CASCADE
+    FOREIGN KEY (post_id) REFERENCES post (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES person (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
