@@ -51,17 +51,27 @@ await new Promise((resolve) => {
     })
     .on("end", function () {
       const pool = new Pool(poolCreator); // create a new connection to the database
-      const query = getTableStructure(companiesData[0], "company");
+      const [users_ids, ...companyColumns] = companiesData[0];
+      const query = getTableStructure(companyColumns, "company");
       companiesData.shift();
       pool.connect((err, client, done) => {
         if (err) throw err;
         try {
-          companiesData.forEach((row) => {
-            client.query(query, row, (err, res) => {
+          companiesData.forEach((company) => {
+            const [users_ids, ...companyProps] = company;
+            client.query(query, companyProps, (err, res) => {
               if (err) {
                 console.log(err.stack);
               } else {
                 // console.log("inserted " + res.rowCount + " row:", row);
+                console.log(res.rows);
+                const userIdsArray = users_ids.split(",");
+                userIdsArray.forEach((user_id) => {
+                  client.query(
+                    `INSERT INTO company_person (user_id, company_id) values ($1, $2) RETURNING *`,
+                    [user_id, res.rows[0].id]
+                  );
+                });
               }
             });
           });

@@ -19,7 +19,7 @@
   },
   "scripts": {
     "create-db": "psql -U postgres < src/schema.sql",
-    "seed": "npm run create-db && Node src/db.js",
+    "seed": "npm run create-db && node src/db.js",
     "start": "node src/server.js",
     "nodemon": "nodemon src/server.js"
   }

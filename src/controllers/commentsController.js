@@ -31,19 +31,19 @@ class CommentsController {
   }
 
   async createComment(req, res) {
-    const { postid, userid, name, email, body } = req.body;
+    const { post_id, user_id, name, email, body } = req.body;
     const newComment = await poolCreator.query(
-      `INSERT INTO comment (postid, userid, name, email, body) values ($1, $2, $3, $4, $5) RETURNING *`,
-      [postid, userid, name, email, body]
+      `INSERT INTO comment (post_id, user_id, name, email, body) values ($1, $2, $3, $4, $5) RETURNING *`,
+      [post_id, user_id, name, email, body]
     );
     res.json(newComment.rows[0]);
   }
 
   async updateComment(req, res) {
-    const { id, postid, userid, name, email, body } = req.body;
+    const { id, post_id, user_id, name, email, body } = req.body;
     const updatedComment = await poolCreator.query(
-      `UPDATE post set postid = $1, userid = $2, name = $3, email = $4, body = $5 where id = $6 RETURNING *`,
-      [postid, userid, name, email, body, id]
+      `UPDATE post set post_id = $1, user_id = $2, name = $3, email = $4, body = $5 where id = $6 RETURNING *`,
+      [post_id, user_id, name, email, body, id]
     );
     res.json(updatedComment.rows[0]);
   }
