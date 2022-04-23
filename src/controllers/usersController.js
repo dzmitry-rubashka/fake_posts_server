@@ -8,7 +8,7 @@ const poolCreator = new Pool(pool);
 class UsersController {
   //++
   async getAllUsers(req, res) {
-    const allUsers = await poolCreator.query(`SELECT * FROM person`);
+    const allUsers = await poolCreator.query(`SELECT * FROM person`); //
     res.json(allUsers.rows);
   }
   //++
