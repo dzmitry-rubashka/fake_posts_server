@@ -32,11 +32,11 @@ class UsersController {
   }
 
   async updateUser(req, res) {
-    const { id, name, username, email, address, phone, website, company } =
+    const { id, name, username, email, address, phone, website } =
       req.body;
     const updatedUser = await poolCreator.query(
-      `UPDATE person set name = $1, username = $2, email = $3, address = $4, phone = $5, website = $6, company = $7 where id = $8 RETURNING *`,
-      [name, username, email, address, phone, website, company, id]
+      `UPDATE person set name = $1, username = $2, email = $3, address = $4, phone = $5, website = $6 where id = $7 RETURNING *`,
+      [name, username, email, address, phone, website, id]
     );
     res.json(updatedUser.rows[0]);
   }

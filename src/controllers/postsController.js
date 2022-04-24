@@ -6,12 +6,11 @@ const { Pool } = pkg;
 const poolCreator = new Pool(pool);
 
 class PostsController {
-  //++
   async getAllPosts(req, res) {
     const allPosts = await poolCreator.query(`SELECT * FROM post`);
     res.json(allPosts.rows);
   }
-  //++
+
   async getOnePost(req, res) {
     const id = req.params.id;
     const onePost = await poolCreator.query(
@@ -33,9 +32,8 @@ class PostsController {
   async updatePost(req, res) {
     const { user_id, id, title, body } = req.body;
     const updatedPost = await poolCreator.query(
-      // `UPDATE post set userid = $1, title = $2, body = $3 where id = $4 RETURNING *`,
-      `UPDATE post set title = $1, body = $2 where id = $3 RETURNING *`,
-      [title, body, id]
+      `UPDATE post set user_id = $1, title = $2, body = $3 where id = $4 RETURNING *`,
+      [user_id, title, body, id]
     );
     res.json(updatedPost.rows[0]);
   }
