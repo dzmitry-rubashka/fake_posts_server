@@ -7,9 +7,9 @@ const poolCreator = new Pool(pool);
 
 class UsersController {
   async getAllUsers(req, res) {
-    const allUsers =
-      await poolCreator.query(`SELECT id, name, username, email, address, phone, website,
-      array(SELECT company_person.company_id FROM company_person WHERE company_person.user_id = id) AS companies FROM person`);
+    const allUsers = await poolCreator.query(
+      `SELECT *, array(SELECT row_to_json(company) FROM company WHERE company.id IN (SELECT company_person.company_id FROM company_person WHERE company_person.user_id = person.id)) AS companies FROM person`
+    );
     res.json(allUsers.rows);
   }
 

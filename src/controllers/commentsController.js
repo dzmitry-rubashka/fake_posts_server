@@ -20,7 +20,7 @@ class CommentsController {
     );
     res.json(comment.rows[0]);
   }
-
+  //++
   async deleteComment(req, res) {
     const id = req.params.id;
     const comment = await poolCreator.query(
@@ -47,7 +47,6 @@ class CommentsController {
     );
     res.json(updatedComment.rows[0]);
   }
-
 }
 
 export default new CommentsController();
