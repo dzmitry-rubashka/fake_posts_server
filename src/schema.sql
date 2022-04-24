@@ -37,9 +37,9 @@
 
 -- new version
 -- DROP DATABASE IF EXISTS fakepostsdb8;
-CREATE DATABASE fakepostsdb8;
+CREATE DATABASE fakepostsdb;
 -- move into the db
-\c fakepostsdb8
+\c fakepostsdb
 
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS company_person;
