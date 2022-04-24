@@ -5,6 +5,7 @@ import cors from "cors";
 import usersRouter from "./routes/usersRoutes.js";
 import postsRouter from "./routes/postsRoutes.js";
 import commentsRouter from "./routes/commentsRoutes.js";
+import companiesRouter from "./routes/companiesRoutes.js";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use("/", usersRouter);
 app.use("/", postsRouter);
 app.use("/", commentsRouter);
+app.use("/", companiesRouter);
 
 app.listen(port, host, () => {
   console.log(`Listening on http://${host}:${port}`);
