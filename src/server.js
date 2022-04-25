@@ -18,7 +18,6 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
 };
-
 app.set("json spaces", 2);
 app.use(cors(corsOptions));
 app.use(express.json());

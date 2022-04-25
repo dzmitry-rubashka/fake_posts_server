@@ -6,11 +6,12 @@ const { Pool } = pkg;
 const poolCreator = new Pool(pool);
 
 class CommentsController {
+  //++
   async getAllComments(req, res) {
     const comments = await poolCreator.query(`SELECT * FROM comment`);
     res.json(comments.rows);
   }
-
+  //++
   async getOneComment(req, res) {
     const id = req.params.id;
     const comment = await poolCreator.query(
@@ -19,16 +20,16 @@ class CommentsController {
     );
     res.json(comment.rows[0]);
   }
-
+//++
   async deleteComment(req, res) {
     const id = req.params.id;
-    const comment = await poolCreator.query(
+    const deletedComment = await poolCreator.query(
       `DELETE FROM comment where id = $1`,
       [id]
     );
-    res.json(comment.rows[0]);
+    res.json(deletedComment.rows[0]);
   }
-
+//++
   async createComment(req, res) {
     const { post_id, user_id, name, email, body } = req.body;
     const newComment = await poolCreator.query(
@@ -37,7 +38,7 @@ class CommentsController {
     );
     res.json(newComment.rows[0]);
   }
-
+//++
   async updateComment(req, res) {
     const { id, name, email, body } = req.body;
     const updatedComment = await poolCreator.query(
