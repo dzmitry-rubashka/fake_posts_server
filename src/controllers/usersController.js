@@ -16,7 +16,7 @@ class UsersController {
   async getOneUser(req, res) {
     const id = req.params.id;
     const oneUser = await poolCreator.query(
-      `SELECT * FROM person where id = $1`,
+      `SELECT *, array(SELECT row_to_json(company) FROM company WHERE company.id IN (SELECT company_person.company_id FROM company_person WHERE company_person.user_id = person.id)) AS companies FROM person where id = $1`,
       [id]
     );
     res.json(oneUser.rows[0]);
