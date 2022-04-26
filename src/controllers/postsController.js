@@ -6,12 +6,11 @@ const { Pool } = pkg;
 const poolCreator = new Pool(pool);
 
 class PostsController {
-  //++
   async getAllPosts(req, res) {
     const allPosts = await poolCreator.query(`SELECT * FROM post`);
     res.json(allPosts.rows);
   }
- //++
+
   async getOnePost(req, res) {
     const id = req.params.id;
     const onePost = await poolCreator.query(
@@ -20,7 +19,7 @@ class PostsController {
     );
     res.json(onePost.rows[0]);
   }
-//++
+
   async createPost(req, res) {
     const { user_id, title, body } = req.body;
     const newPost = await poolCreator.query(
@@ -29,7 +28,7 @@ class PostsController {
     );
     res.json(newPost.rows[0]);
   }
-  //++
+
   async updatePost(req, res) {
     const { id, title, body } = req.body;
     const updatedPost = await poolCreator.query(
@@ -38,7 +37,7 @@ class PostsController {
     );
     res.json(updatedPost.rows[0]);
   }
-//++
+
   async deletePost(req, res) {
     const id = req.params.id;
     const deletedPost = await poolCreator.query(
