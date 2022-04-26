@@ -2,10 +2,11 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
-import usersRouter from "./routes/usersRoutes.js";
-import postsRouter from "./routes/postsRoutes.js";
-import commentsRouter from "./routes/commentsRoutes.js";
-import companiesRouter from "./routes/companiesRoutes.js";
+import usersRoutes from "./routes/usersRoutes.js";
+import postsRoutes from "./routes/postsRoutes.js";
+import commentsRoutes from "./routes/commentsRoutes.js";
+import companiesRoutes from "./routes/companiesRoutes.js";
+import companyPersonRoutes from "./routes/companyPersonRoutes.js";
 
 dotenv.config();
 
@@ -21,10 +22,12 @@ const corsOptions = {
 app.set("json spaces", 2);
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use("/", usersRouter);
-app.use("/", postsRouter);
-app.use("/", commentsRouter);
-app.use("/", companiesRouter);
+app.use("/", usersRoutes);
+app.use("/", postsRoutes);
+app.use("/", commentsRoutes);
+app.use("/", companiesRoutes);
+app.use("/", companyPersonRoutes);
+
 
 app.listen(port, host, () => {
   console.log(`Listening on http://${host}:${port}`);
