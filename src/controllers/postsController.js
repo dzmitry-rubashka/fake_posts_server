@@ -1,9 +1,9 @@
 import pkg from "pg";
 
-import { pool } from "../commonComponents/dbPool.js";
+import { poolConfig } from "../commonComponents/poolConfig.js";
 
 const { Pool } = pkg;
-const poolCreator = new Pool(pool);
+const poolCreator = new Pool(poolConfig);
 
 class PostsController {
   async getAllPosts(req, res) {

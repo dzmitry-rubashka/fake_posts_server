@@ -2,11 +2,10 @@ import fs from "fs";
 import pkg from "pg";
 import fastcsv from "fast-csv";
 
-import { getTableStructure } from "./commonComponents/utils/getTableStructure.js";
-import { pool } from "./commonComponents/dbPool.js";
+import { columnNames } from "./commonComponents/utils/columnNames.js";
+import { poolConfig } from "./commonComponents/poolConfig.js";
 
 const { Pool } = pkg;
-const poolCreator = pool;
 
 await new Promise((resolve) => {
   const usersStream = fs.createReadStream("./src/base-data/users.csv");
@@ -17,8 +16,8 @@ await new Promise((resolve) => {
       usersData.push(data);
     })
     .on("end", function () {
-      const pool = new Pool(poolCreator); // create a new connection to the database
-      const query = getTableStructure(usersData[0], "person");
+      const pool = new Pool(poolConfig); // create a new connection to the database
+      const query = columnNames(usersData[0], "person");
       usersData.shift();
       pool.connect((err, client, done) => {
         if (err) throw err;
@@ -50,9 +49,9 @@ await new Promise((resolve) => {
       companiesData.push(data);
     })
     .on("end", function () {
-      const pool = new Pool(poolCreator); // create a new connection to the database
+      const pool = new Pool(poolConfig); // create a new connection to the database
       const [users_ids, ...companyColumns] = companiesData[0];
-      const query = getTableStructure(companyColumns, "company");
+      const query = columnNames(companyColumns, "company");
       companiesData.shift();
       pool.connect((err, client, done) => {
         if (err) throw err;
@@ -92,8 +91,8 @@ await new Promise((resolve) => {
       postsData.push(data);
     })
     .on("end", function () {
-      const pool = new Pool(poolCreator); // create a new connection to the database
-      const query = getTableStructure(postsData[0], "post");
+      const pool = new Pool(poolConfig); // create a new connection to the database
+      const query = columnNames(postsData[0], "post");
       postsData.shift();
       pool.connect((err, client, done) => {
         if (err) throw err;
@@ -125,8 +124,8 @@ await new Promise((resolve) => {
       commentsData.push(data);
     })
     .on("end", function () {
-      const pool = new Pool(poolCreator); // create a new connection to the database
-      const query = getTableStructure(commentsData[0], "comment");
+      const pool = new Pool(poolConfig); // create a new connection to the database
+      const query = columnNames(commentsData[0], "comment");
       commentsData.shift();
       pool.connect((err, client, done) => {
         if (err) throw err;

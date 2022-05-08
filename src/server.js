@@ -10,8 +10,8 @@ import companyPersonRoutes from "./routes/companyPersonRoutes.js";
 
 dotenv.config();
 
-const port = process.env.BEPORT || 8080;
-const host = process.env.HOST || "localhost";
+const port = process.env.BE_PORT || 8080;
+const host = process.env.DB_HOST || "localhost";
 
 const app = express();
 const corsOptions = {
