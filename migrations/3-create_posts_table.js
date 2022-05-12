@@ -12,6 +12,9 @@ module.exports = {
       },
       user_id: {
         type: DataTypes.INTEGER,
+        references: { model: { tableName: 'users' }, key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       title: {
         type: DataTypes.STRING,

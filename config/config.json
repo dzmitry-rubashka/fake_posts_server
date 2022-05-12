@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "root",
-    "database": "fakepostsdb2",
+    "database": "ddddddd",
     "host": "localhost",
     "dialect": "postgres",
     "port": 5432

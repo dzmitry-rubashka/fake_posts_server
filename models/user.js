@@ -5,6 +5,25 @@ export default (sequelize) => {
   class User extends Model {
     static associate(models) {
       User.RefreshToken = User.hasOne(models.RefreshToken);
+
+      User.hasMany(models.Post, {
+        foreignKey: "user_id",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        as: "posts",
+      });
+      User.hasMany(models.Comment, {
+        foreignKey: "user_id",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        as: "comments",
+      });
+      User.belongsToMany(models.Company, {
+        through: "user_company",
+        as: "companies",
+        foreignKey: "user_id",
+        otherKey: "company_id",
+      });
     }
 
     static async hashPassword(password) {
@@ -19,7 +38,7 @@ export default (sequelize) => {
       phone,
       website,
       password,
-      refreshToken,
+      refreshToken
     }) {
       return sequelize.transaction(() => {
         return User.create(
@@ -101,7 +120,7 @@ export default (sequelize) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
+      }
     },
     {
       sequelize,
@@ -129,26 +148,6 @@ export default (sequelize) => {
   User.afterCreate((user, options) => {
     delete user.dataValues.password;
   });
-
-  User.associate = function (models) {
-    User.hasMany(models.Post, {
-      foreignKey: "user_id",
-      onDelete: "CASCADE",
-      onUpdate: "CASCADE",
-      as: "posts",
-    });
-    User.hasMany(models.Comment, {
-      foreignKey: "user_id",
-      onDelete: "CASCADE",
-      onUpdate: "CASCADE",
-      as: "comments",
-    });
-    User.belongsToMany(models.Company, {
-      through: "user_company",
-      as: "companies",
-      foreignKey: "user_id",
-    });
-  };
 
   return User;
 };

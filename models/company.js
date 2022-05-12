@@ -2,6 +2,16 @@ import { Model, DataTypes } from "sequelize";
 
 export default (sequelize) => {
   class Company extends Model {
+
+    static associate(models) {
+      Company.belongsToMany(models.User, {
+        through: "user_company",
+        as: "users",
+        foreignKey: "company_id",
+        otherKey: "user_id",
+      });
+    }
+
     static async createNewCompany({ name, catchphrase, bs }) {
       return sequelize.transaction(() => {
         return Company.create({
@@ -37,15 +47,6 @@ export default (sequelize) => {
       modelName: "companies",
     }
   );
-
-  Company.associate = function (models) {
-    Company.belongsToMany(models.User, {
-      through: "user_company",
-      as: "users",
-      foreignKey: "company_id",
-      otherKey: "user_id"
-    });
-  };
 
   return Comment;
 };

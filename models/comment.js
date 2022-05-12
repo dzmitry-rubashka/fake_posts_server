@@ -2,6 +2,20 @@ import { Model, DataTypes } from "sequelize";
 
 export default (sequelize) => {
   class Comment extends Model {
+
+    static associate(models) {
+      Comment.belongsTo(models.Post, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        foreignKey: "post_id",
+      });
+      Comment.belongsTo(models.User, {
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        foreignKey: "user_id",
+      });
+    }
+
     static async createNewComment({ post_id, user_id, name, email, body }) {
       return sequelize.transaction(() => {
         return Comment.create({
@@ -48,19 +62,6 @@ export default (sequelize) => {
       modelName: "comments",
     }
   );
-
-  Comment.associate = function (models) {
-    Comment.belongsTo(models.Post, {
-      onDelete: "CASCADE",
-      onUpdate: "CASCADE",
-      foreignKey: "post_id",
-    });
-    Comment.belongsTo(models.User, {
-      onDelete: "CASCADE",
-      onUpdate: "CASCADE",
-      foreignKey: "user_id",
-    });
-  };
 
   return Comment;
 };
