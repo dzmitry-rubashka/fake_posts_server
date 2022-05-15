@@ -1,5 +1,5 @@
 {
-  "type": "commonjs",
+  "type": "module",
   "name": "server",
   "version": "1.0.0",
   "description": "",
@@ -12,18 +12,27 @@
     "express": "^4.17.3",
     "fast-csv": "^4.3.6",
     "pg": "^8.7.3",
-    "sequelize": "^6.19.0"
+    "sequelize": "^6.19.0",
+    "sequelize-auto-migrations-v2": "^1.2.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/node": "^7.14.9",
+    "@babel/preset-env": "^7.15.0",
+    "babel-register": "^6.26.0",
     "bcrypt": "^5.0.1",
+    "cls-hooked": "^4.2.2",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
     "sequelize-cli": "^6.4.1"
   },
   "scripts": {
+    "dev": "NODE_ENV=development nodemon --exec babel-node src/server.js",
+    "build": "babel ./src --out-dir ./dist",
     "create-db": "psql -U postgres < src/schema.sql",
     "seed": "npm run create-db && node src/db.js",
     "start": "node src/server.js",
-    "nodemon": "nodemon src/erver.js"
+    "nodemon": "nodemon src/server.js"
   }
 }

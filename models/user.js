@@ -1,10 +1,8 @@
 import { Model, DataTypes } from "sequelize";
-import bcrypt from "bcrypt";
 
-export default (sequelize) => {
+const UserModel = (sequelize) => {
   class User extends Model {
     static associate(models) {
-      User.RefreshToken = User.hasOne(models.RefreshToken);
 
       User.hasMany(models.Post, {
         foreignKey: "user_id",
@@ -26,36 +24,6 @@ export default (sequelize) => {
       });
     }
 
-    static async hashPassword(password) {
-      return bcrypt.hash(password, 10);
-    }
-
-    static async createNewUser({
-      name,
-      username,
-      email,
-      address,
-      phone,
-      website,
-      password,
-      refreshToken
-    }) {
-      return sequelize.transaction(() => {
-        return User.create(
-          {
-            name,
-            username,
-            email,
-            address,
-            phone,
-            website,
-            password,
-            RefreshToken: { token: refreshToken },
-          },
-          { include: [User.RefreshToken] }
-        );
-      });
-    }
   }
 
   User.init(
@@ -117,37 +85,13 @@ export default (sequelize) => {
           },
         },
       },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      }
     },
     {
       sequelize,
       modelName: "users",
-      defaultScope: { attributes: { exclude: ["password"] } },
-      scopes: {
-        withPassword: {
-          attributes: { include: ["password"] },
-        },
-      },
     }
   );
 
-  User.prototype.comparePasswords = async function (password) {
-    return bcrypt.compare(password, this.password);
-  };
-
-  User.beforeSave(async (user, options) => {
-    if (user.password) {
-      const hashedPassword = await User.hashPassword(user.password);
-      user.password = hashedPassword;
-    }
-  });
-
-  User.afterCreate((user, options) => {
-    delete user.dataValues.password;
-  });
-
   return User;
 };
+export default UserModel

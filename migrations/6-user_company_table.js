@@ -4,6 +4,12 @@ const { DataTypes } = require("sequelize");
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("usersCompanies", {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
       user_id: {
         primaryKey: true,
         type: Sequelize.INTEGER,
@@ -13,7 +19,7 @@ module.exports = {
           key: 'id'
         }
       },
-      compamy_id: {
+      company_id: {
         primaryKey: true,
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -21,7 +27,7 @@ module.exports = {
           model: 'users',
           key: 'id'
         }
-      },
+      }
     });
   },
 

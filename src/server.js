@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
-// import usersRoutes from "./routes/usersRoutes.js";
+import usersRoutes from "./routes/usersRoutes.js";
 // import postsRoutes from "./routes/postsRoutes.js";
 // import commentsRoutes from "./routes/commentsRoutes.js";
 // import companiesRoutes from "./routes/companiesRoutes.js";
@@ -22,7 +22,7 @@ const corsOptions = {
 app.set("json spaces", 2);
 app.use(cors(corsOptions));
 app.use(express.json());
-// app.use("/", usersRoutes);
+app.use("/", usersRoutes);
 // app.use("/", postsRoutes);
 // app.use("/", commentsRoutes);
 // app.use("/", companiesRoutes);

@@ -12,15 +12,15 @@ export default (sequelize) => {
       });
     }
 
-    static async createNewCompany({ name, catchphrase, bs }) {
-      return sequelize.transaction(() => {
-        return Company.create({
-          name,
-          catchphrase,
-          bs,
-        });
-      });
-    }
+    // static async createNewCompany({ name, catchphrase, bs }) {
+    //   return sequelize.transaction(() => {
+    //     return Company.create({
+    //       name,
+    //       catchphrase,
+    //       bs,
+    //     });
+    //   });
+    // }
   }
 
   Company.init(
