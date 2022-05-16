@@ -7,13 +7,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "fast-csv": "^4.3.6",
+    "morgan": "^1.10.0",
     "pg": "^8.7.3",
     "sequelize": "^6.19.0",
-    "sequelize-auto-migrations-v2": "^1.2.1"
+    "sequelize-auto-migrations-v2": "^1.2.1",
+    "sqlite3": "^5.0.8"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",

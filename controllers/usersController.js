@@ -1,8 +1,10 @@
-import UserModel from "../../models/user.js";
+import UserModel from "../models/user.js";
+import models from "../models/index.js";
+const {User} = models;
 
 const createUser = async (req, res) => {
   try {
-    const user = await UserModel.User.create(req.body);
+    const user = await User?.create(req.body);
     return res.status(201).json({
       user
     });
@@ -12,4 +14,3 @@ const createUser = async (req, res) => {
 };
 
 export default createUser
-

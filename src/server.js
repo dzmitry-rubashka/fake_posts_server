@@ -2,11 +2,12 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
-import usersRoutes from "./routes/usersRoutes.js";
+import usersRoutes from "../routes/usersRoutes.js";
 // import postsRoutes from "./routes/postsRoutes.js";
 // import commentsRoutes from "./routes/commentsRoutes.js";
 // import companiesRoutes from "./routes/companiesRoutes.js";
 // import companyPersonRoutes from "./routes/companyPersonRoutes.js";
+// import userControllers from "../routes/index.js";
 
 dotenv.config();
 
@@ -31,3 +32,5 @@ app.use("/", usersRoutes);
 app.listen(port, host, () => {
   console.log(`Listening on http://${host}:${port}`);
 });
+
+

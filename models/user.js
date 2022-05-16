@@ -1,6 +1,8 @@
-import { Model, DataTypes } from "sequelize";
+import { Sequelize, Model, DataTypes } from "sequelize";
+const sequelize = new Sequelize('sqlite::memory:');
 
-const UserModel = (sequelize) => {
+export default (sequelize) => {
+  // const sequelize = new Sequelize('sqlite::memory:');
   class User extends Model {
     static associate(models) {
 
@@ -88,10 +90,10 @@ const UserModel = (sequelize) => {
     },
     {
       sequelize,
-      modelName: "users",
+      modelName: "User",
     }
   );
 
   return User;
 };
-export default UserModel
+
