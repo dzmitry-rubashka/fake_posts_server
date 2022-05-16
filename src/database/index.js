@@ -1,6 +1,7 @@
 import cls from 'cls-hooked';
 import { Sequelize } from 'sequelize';
-import { registerModels } from '../../models';
+import { registerModels } from "../../models/index.js";
+// import environment from '../../config/environment.js';
 
 export default class Database {
   constructor(environment, dbConfig) {
@@ -15,8 +16,14 @@ export default class Database {
     Sequelize.useCLS(namespace);
 
     // создание соединения
-    const { username, password, host, port, database, dialect } =
-      this.dbConfig[this.environment];
+    // const { password, host, port, database, dialect } =
+    //   this.dbConfig[this.environment];
+    const username = 'postgres';
+    const password = 'root';
+    const host = 'localhost';
+    const port = '5432';
+    const database = 'fakepostsdb';
+    const dialect = 'postgres';
     this.connection = new Sequelize({
       username,
       password,
