@@ -4,7 +4,9 @@ const {User} = models;
 
 const createUser = async (req, res) => {
   try {
-    const user = await User?.create(req.body);
+    const user = await User.create(req.body);
+    console.log(req.body)
+    console.log(user)
     return res.status(201).json({
       user
     });

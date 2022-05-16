@@ -1,7 +1,7 @@
 import { Sequelize, Model, DataTypes } from "sequelize";
-const sequelize = new Sequelize('sqlite::memory:');
+// const sequelize = new Sequelize('sqlite::memory:');
 
-export default (sequelize) => {
+export default () => {
   // const sequelize = new Sequelize('sqlite::memory:');
   class User extends Model {
     static associate(models) {

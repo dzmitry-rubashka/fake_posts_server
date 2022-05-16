@@ -12,6 +12,7 @@ export function registerModels(sequelize) {
 
   for (const file of filteredModelFiles) {
     const model = import(path.join(__dirname, file)).default(sequelize);
+    console.log(model, 1211)
     models[model.name] = model;
   }
 
