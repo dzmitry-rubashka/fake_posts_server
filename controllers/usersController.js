@@ -1,12 +1,11 @@
-import UserModel from "../models/user.js";
 import models from "../models/index.js";
 import Database from "../src/database/index.js";
 import dbConfig from "../config/database.js";
 import environment from '../config/environment.js';
+
 const {User} = models;
 
 const createUser = async (req, res) => {
-
   try {
 
     const db = new Database(environment.nodeEnv, dbConfig);
