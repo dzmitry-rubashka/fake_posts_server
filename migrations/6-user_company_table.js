@@ -14,19 +14,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {
-          model: 'companies',
-          key: 'id'
-        }
+        // references: {
+        //   model: 'companies',
+        //   key: 'id'
+        // }
       },
       company_id: {
         primaryKey: true,
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {
-          model: 'users',
-          key: 'id'
-        }
+        // references: {
+        //   model: 'users',
+        //   key: 'id'
+        // }
       }
     });
   },
