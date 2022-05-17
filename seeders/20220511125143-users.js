@@ -19,6 +19,8 @@ module.exports = {
         }),
         phone: "1-770-736-8031 x56442",
         website: "hildegard.org",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         name: "Ervin Howell",
@@ -36,6 +38,8 @@ module.exports = {
         }),
         phone: "010-692-6593 x09125",
         website: "anastasia.net",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         name: "Clementine Bauch",
@@ -53,6 +57,8 @@ module.exports = {
         }),
         phone: "1-463-123-4447",
         website: "ramiro.info",
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ]);
   },

@@ -12,7 +12,10 @@ export default (sequelize) => {
 
   RefreshToken.init(
     { token: { type: DataTypes.TEXT } },
-    { sequelize, modelName: "refreshTokens" }
+    { sequelize,
+      modelName: "RefreshToken",
+      tableName: "refreshTokens"
+    }
   );
 
   return RefreshToken;

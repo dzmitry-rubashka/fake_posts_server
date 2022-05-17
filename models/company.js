@@ -35,7 +35,8 @@ export default (sequelize) => {
     },
     {
       sequelize,
-      modelName: "companies",
+      modelName: 'Company',
+      tableName: 'companies',
     }
   );
 

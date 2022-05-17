@@ -16,16 +16,6 @@ export default (sequelize) => {
         as: "comments",
       });
     }
-
-    static async createNewPost({ user_id, title, body }) {
-      return sequelize.transaction(() => {
-        return Post.create({
-          user_id,
-          title,
-          body,
-        });
-      });
-    }
   }
 
   Post.init(
@@ -42,7 +32,8 @@ export default (sequelize) => {
     },
     {
       sequelize,
-      modelName: "posts",
+      modelName: 'Post',
+      tableName: 'posts',
     }
   );
 

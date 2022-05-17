@@ -59,7 +59,8 @@ export default (sequelize) => {
     },
     {
       sequelize,
-      modelName: "comments",
+      modelName: 'Comment',
+      tableName: 'comments',
     }
   );
 
