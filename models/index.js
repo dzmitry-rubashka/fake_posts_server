@@ -30,16 +30,13 @@
 // export default models;
 
 
-import userModel from './user.js'
-
-console.log(userModel, 'userModel')
+import { registerUser } from './user.js';
 
 let models = {};
 
 export function registerModels(sequelize) {
-  models.User = userModel(sequelize)
-  models.sequelize = sequelize
-
+  models.User = registerUser(sequelize);
+  models.sequelize = sequelize;
 }
-export default models
-console.log(models, 333)
+export default models;
+console.log(models, 333);
