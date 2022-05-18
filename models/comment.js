@@ -1,6 +1,6 @@
-import { Model, DataTypes } from "sequelize";
+import { Model, DataTypes } from 'sequelize';
 
-export default (sequelize) => {
+const registerComment = (sequelize) => {
   class Comment extends Model {
 
     static associate(models) {
@@ -13,18 +13,6 @@ export default (sequelize) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
         foreignKey: "user_id",
-      });
-    }
-
-    static async createNewComment({ post_id, user_id, name, email, body }) {
-      return sequelize.transaction(() => {
-        return Comment.create({
-          post_id,
-          user_id,
-          name,
-          email,
-          body,
-        });
       });
     }
   }
@@ -43,7 +31,7 @@ export default (sequelize) => {
       email: {
         type: DataTypes.STRING(100),
         allowNull: false,
-        unique: true,
+        unique: false,
         validate: {
           isEmail: {
             msg: "Not a valid email address",
@@ -66,3 +54,5 @@ export default (sequelize) => {
 
   return Comment;
 };
+
+export { registerComment };

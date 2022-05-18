@@ -1,17 +1,16 @@
-import { Model, DataTypes } from "sequelize";
+import { Model, DataTypes } from 'sequelize';
 
-export default (sequelize) => {
+const registerCompany = (sequelize) => {
   class Company extends Model {
 
     static associate(models) {
       Company.belongsToMany(models.User, {
-        through: "user_company",
+        through: "usersCompanies",
         as: "users",
         foreignKey: "company_id",
         otherKey: "user_id",
       });
     }
-
   }
 
   Company.init(
@@ -40,5 +39,7 @@ export default (sequelize) => {
     }
   );
 
-  return Comment;
+  return Company;
 };
+
+export { registerCompany };

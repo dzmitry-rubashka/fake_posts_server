@@ -21,6 +21,14 @@ module.exports = {
       bs: {
         type: DataTypes.TEXT,
       },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
     });
   },
 

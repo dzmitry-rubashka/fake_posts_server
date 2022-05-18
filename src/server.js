@@ -6,9 +6,9 @@ import dbConfig from '../config/database.js';
 import environment from '../config/environment.js';
 
 import usersRoutes from '../routes/usersRoutes.js';
-// import postsRoutes from "./routes/postsRoutes.js";
-// import commentsRoutes from "./routes/commentsRoutes.js";
-// import companiesRoutes from "./routes/companiesRoutes.js";
+import postsRoutes from "../routes/postsRoutes.js";
+import commentsRoutes from "../routes/commentsRoutes.js";
+import companiesRoutes from "../routes/companiesRoutes.js";
 // import companyPersonRoutes from "./routes/companyPersonRoutes.js";
 // import userControllers from "../routes/index.js";
 
@@ -27,9 +27,9 @@ app.set('json spaces', 2);
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/', usersRoutes);
-// app.use("/", postsRoutes);
-// app.use("/", commentsRoutes);
-// app.use("/", companiesRoutes);
+app.use("/", postsRoutes);
+app.use("/", commentsRoutes);
+app.use("/", companiesRoutes);
 // app.use("/", companyPersonRoutes);
 const db = new Database(environment.nodeEnv, dbConfig);
 await db.connect();

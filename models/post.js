@@ -1,6 +1,6 @@
-import { Model, DataTypes } from "sequelize";
+import { Model, DataTypes } from 'sequelize';
 
-export default (sequelize) => {
+const registerPost = (sequelize) => {
   class Post extends Model {
 
     static associate(models) {
@@ -39,3 +39,5 @@ export default (sequelize) => {
 
   return Post;
 };
+
+export { registerPost };

@@ -11,22 +11,26 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       user_id: {
-        primaryKey: true,
         type: Sequelize.INTEGER,
-        allowNull: false,
-        // references: {
-        //   model: 'companies',
-        //   key: 'id'
-        // }
+        references: { model: { tableName: 'companies' }, key: 'id'},
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       company_id: {
-        primaryKey: true,
         type: Sequelize.INTEGER,
         allowNull: false,
-        // references: {
-        //   model: 'users',
-        //   key: 'id'
-        // }
+        references: { model: { tableName: 'users' }, key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      //
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     });
   },

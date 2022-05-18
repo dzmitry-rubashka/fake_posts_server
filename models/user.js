@@ -16,7 +16,7 @@ const registerUser = (sequelize) => {
         as: 'comments',
       });
       User.belongsToMany(models.Company, {
-        through: 'user_company',
+        through: "usersCompanies",
         as: 'companies',
         foreignKey: 'user_id',
         otherKey: 'company_id',
