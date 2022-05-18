@@ -12,14 +12,14 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.INTEGER,
-        references: { model: { tableName: 'companies' }, key: 'id'},
+        references: { model: { tableName: 'users' }, key: 'id'},
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
       company_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: { tableName: 'users' }, key: 'id' },
+        references: { model: { tableName: 'companies' }, key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },

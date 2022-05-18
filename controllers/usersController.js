@@ -2,21 +2,37 @@ import models from '../models/index.js';
 
 export const createUser = async (req, res) => {
 	try {
-		const { User } = models;
-		const user = await User.create(req.body);
+		const { User, Company } = models;
+		const user = await User.create(req.body,
+			{
+				include: {
+					model: Company,
+					as: 'companies'
+				}
+			});
 		return res.status(201).json({
-			user,
+			user
 		});
 	} catch (error) {
-		console.log(error)
 		return res.status(500).json({ error: error.message });
 	}
 };
 
 export const getAllUsers = async (req, res) => {
 	try {
-		const { User } = models;
-		const users = await User.findAll();
+		const { User, Company } = models;
+		const users = await User.findAll({
+			include: [
+				{
+					model: Company,
+					as: "companies",
+					attributes: ["id", "name", "catchPhrase", "bs"],
+					through: {
+						attributes: [],
+					}
+				},
+			],
+		});
 		return res.status(201).json(users);
 	} catch (error) {
 		return res.status(500).json({ error: error.message });
@@ -25,8 +41,20 @@ export const getAllUsers = async (req, res) => {
 
 export const getOneUser = async (req, res) => {
 	try {
-		const { User } = models;
-		const user = await User.findAll({ where: { id: req.params.id } })
+		const { User, Company } = models;
+		const user = await User.findAll(
+			{ where: { id: req.params.id },
+				include: [
+					{
+						model: Company,
+						as: "companies",
+						attributes: ["id", "name", "catchPhrase", "bs"],
+						through: {
+							attributes: [],
+						}
+					},
+				],
+			})
 		return res.status(201).json(user);
 	} catch (error) {
 		return res.status(500).json({ error: error.message });
