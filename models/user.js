@@ -83,6 +83,15 @@ const registerUser = (sequelize) => {
           },
         },
       },
+      password: {
+        type: DataTypes.STRING(50),
+        validate: {
+          len: {
+            args: [8, 50],
+            msg: 'Password must contain between 8 and 50 characters',
+          },
+        },
+      },
     },
     {
       sequelize,

@@ -34,8 +34,11 @@
     "dev": "NODE_ENV=development nodemon --exec babel-node src/server.js",
     "build": "babel ./src --out-dir ./dist",
     "create-db": "psql -U postgres < src/schema.sql",
-    "seed": "npm run create-db && node src/db.js",
     "start": "node src/server.js",
-    "nodemon": "nodemon src/server.js"
+    "nodemon": "nodemon src/server.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "undo-migrate": "npx sequelize-cli db:migrate:undo:all",
+    "seed": "npx sequelize-cli db:seed:all",
+    "undo-seed": "npx sequelize-cli db:seed:undo:all"
   }
 }
