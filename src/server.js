@@ -9,6 +9,7 @@ import usersRoutes from '../routes/usersRoutes.js';
 import postsRoutes from "../routes/postsRoutes.js";
 import commentsRoutes from "../routes/commentsRoutes.js";
 import companiesRoutes from "../routes/companiesRoutes.js";
+import authRoutes from "../routes/authRoutes.js";
 // import companyPersonRoutes from "./routes/companyPersonRoutes.js";
 // import userControllers from "../routes/index.js";
 
@@ -30,7 +31,7 @@ app.use('/', usersRoutes);
 app.use("/", postsRoutes);
 app.use("/", commentsRoutes);
 app.use("/", companiesRoutes);
-// app.use("/", companyPersonRoutes);
+app.use("/", authRoutes);
 const db = new Database(environment.nodeEnv, dbConfig);
 await db.connect();
 

@@ -34,7 +34,7 @@ module.exports = {
         unique: false,
       },
       password: {
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING(1000)
       },
       createdAt: {
         allowNull: false,
