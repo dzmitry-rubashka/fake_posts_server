@@ -1,16 +1,21 @@
-import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
+import * as bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-import models from '../models/index.js';
+import models from "../models/index.js";
 
 export const createLogin = async (req, res) => {
-
   try {
     const { User } = models;
     const user = await User.findAll({ where: { email: req.body.email } });
-    // const password = await User.findAll({ where: { password: req.body.email } });
-    const compare = bcrypt.compare(req.body.password, user[0].password);
-    return res.status(201).json(compare);
+    const compare = await bcrypt.compare(req.body.password, user[0].password);
+    if (compare) {
+      const token = jwt.sign({ email: user[0].email }, "some_secret_key", {
+        expiresIn: "30days",
+      });
+      return res.status(201).json(token);
+    } else {
+      return res.status(403);
+    }
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
