@@ -34,16 +34,16 @@ module.exports = {
         unique: false,
       },
       password: {
-        type: Sequelize.STRING(1000)
+        type: Sequelize.STRING(1000),
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
 

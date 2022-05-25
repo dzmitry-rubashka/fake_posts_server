@@ -12,15 +12,15 @@ module.exports = {
       },
       post_id: {
         type: DataTypes.INTEGER,
-        references: { model: { tableName: 'posts' }, key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        references: { model: { tableName: "posts" }, key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       user_id: {
         type: DataTypes.INTEGER,
-        references: { model: { tableName: 'users' }, key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        references: { model: { tableName: "users" }, key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       name: {
         type: Sequelize.STRING(1000),
@@ -35,12 +35,12 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
 

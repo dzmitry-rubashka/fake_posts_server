@@ -68,7 +68,7 @@ const registerUser = (sequelize) => {
         unique: true,
         validate: {
           len: {
-            args: [6, 50],
+            args: [0, 50],
             msg: 'Phone number must contain between 6 and 50 characters',
           },
         },

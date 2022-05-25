@@ -1,8 +1,7 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes } from "sequelize";
 
 const registerCompany = (sequelize) => {
   class Company extends Model {
-
     static associate(models) {
       Company.belongsToMany(models.User, {
         through: "usersCompanies",
@@ -34,8 +33,8 @@ const registerCompany = (sequelize) => {
     },
     {
       sequelize,
-      modelName: 'Company',
-      tableName: 'companies',
+      modelName: "Company",
+      tableName: "companies",
     }
   );
 

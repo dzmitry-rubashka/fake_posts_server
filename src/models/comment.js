@@ -1,8 +1,7 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes } from "sequelize";
 
 const registerComment = (sequelize) => {
   class Comment extends Model {
-
     static associate(models) {
       Comment.belongsTo(models.Post, {
         onDelete: "CASCADE",
@@ -47,8 +46,8 @@ const registerComment = (sequelize) => {
     },
     {
       sequelize,
-      modelName: 'Comment',
-      tableName: 'comments',
+      modelName: "Comment",
+      tableName: "comments",
     }
   );
 
