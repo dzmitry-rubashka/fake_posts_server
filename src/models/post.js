@@ -1,8 +1,7 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes } from "sequelize";
 
 const registerPost = (sequelize) => {
   class Post extends Model {
-
     static associate(models) {
       Post.belongsTo(models.User, {
         onDelete: "CASCADE",
@@ -32,8 +31,8 @@ const registerPost = (sequelize) => {
     },
     {
       sequelize,
-      modelName: 'Post',
-      tableName: 'posts',
+      modelName: "Post",
+      tableName: "posts",
     }
   );
 

@@ -10,13 +10,9 @@ export default class Database {
   }
 
   async connect() {
-    // Настройка пространства имен для транзакций
     const namespace = cls.createNamespace("transactions-namespace");
     Sequelize.useCLS(namespace);
-
-    // создание соединения
-    // const { password, host, port, database, dialect } =
-    //   this.dbConfig[this.environment];
+    // connection creating
     const username = "postgres";
     const password = "root";
     const host = "localhost";
@@ -32,8 +28,7 @@ export default class Database {
       dialect,
       logging: this.isTestEnvironment ? false : console.log,
     });
-
-    // чекаем, успешно ли мы законнектились
+    // is the connection successful?
     await this.connection.authenticate({ logging: false });
 
     if (!this.isTestEnvironment) {
@@ -41,9 +36,9 @@ export default class Database {
         "Connection to the database has been established successfully!"
       );
     }
-    // регистрация модели
+    // model registration
     registerModels(this.connection);
-    // синхронизация модели
+    // model synchronization
     await this.sync();
   }
   async disconnect() {

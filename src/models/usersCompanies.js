@@ -1,9 +1,7 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes } from "sequelize";
 
 const registerUsersCompanies = (sequelize) => {
-  class UsersCompanies extends Model {
-
-  }
+  class UsersCompanies extends Model {}
 
   UsersCompanies.init(
     {
@@ -16,8 +14,8 @@ const registerUsersCompanies = (sequelize) => {
     },
     {
       sequelize,
-      modelName: 'UsersCompanies',
-      tableName: 'usersCompanies',
+      modelName: "UsersCompanies",
+      tableName: "usersCompanies",
     }
   );
 

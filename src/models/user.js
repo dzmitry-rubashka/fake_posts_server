@@ -1,25 +1,25 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes } from "sequelize";
 
 const registerUser = (sequelize) => {
   class User extends Model {
     static associate(models) {
       User.hasMany(models.Post, {
-        foreignKey: 'user_id',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-        as: 'posts',
+        foreignKey: "user_id",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        as: "posts",
       });
       User.hasMany(models.Comment, {
-        foreignKey: 'user_id',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-        as: 'comments',
+        foreignKey: "user_id",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+        as: "comments",
       });
       User.belongsToMany(models.Company, {
         through: "usersCompanies",
-        as: 'companies',
-        foreignKey: 'user_id',
-        otherKey: 'company_id',
+        as: "companies",
+        foreignKey: "user_id",
+        otherKey: "company_id",
       });
     }
   }
@@ -32,7 +32,7 @@ const registerUser = (sequelize) => {
         validate: {
           len: {
             args: [2, 50],
-            msg: 'Name must contain between 2 and 50 characters',
+            msg: "Name must contain between 2 and 50 characters",
           },
         },
       },
@@ -42,7 +42,7 @@ const registerUser = (sequelize) => {
         validate: {
           len: {
             args: [2, 50],
-            msg: 'Username must contain between 2 and 50 characters',
+            msg: "Username must contain between 2 and 50 characters",
           },
         },
       },
@@ -52,10 +52,10 @@ const registerUser = (sequelize) => {
         unique: true,
         validate: {
           isEmail: {
-            msg: 'Not a valid email address',
+            msg: "Not a valid email address",
           },
           notNull: {
-            msg: 'Email is required',
+            msg: "Email is required",
           },
         },
       },
@@ -69,7 +69,7 @@ const registerUser = (sequelize) => {
         validate: {
           len: {
             args: [0, 50],
-            msg: 'Phone number must contain between 6 and 50 characters',
+            msg: "Phone number must contain between 6 and 50 characters",
           },
         },
       },
@@ -79,7 +79,7 @@ const registerUser = (sequelize) => {
         validate: {
           len: {
             args: [3, 50],
-            msg: 'Website name must contain between 3 and 50 characters',
+            msg: "Website name must contain between 3 and 50 characters",
           },
         },
       },
@@ -88,15 +88,15 @@ const registerUser = (sequelize) => {
         validate: {
           len: {
             args: [8, 1000],
-            msg: 'Password must contain between 8 and 1000 characters',
+            msg: "Password must contain between 8 and 1000 characters",
           },
         },
       },
     },
     {
       sequelize,
-      modelName: 'User',
-      tableName: 'users',
+      modelName: "User",
+      tableName: "users",
     }
   );
 
