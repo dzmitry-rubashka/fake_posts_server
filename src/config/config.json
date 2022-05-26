@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "root",
+    "database": "fakepostsdb",
+    "host": "localhost",
+    "dialect": "postgres",
+    "port": 5432
+  }
+}

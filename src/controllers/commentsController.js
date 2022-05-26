@@ -1,51 +1,53 @@
-import pkg from "pg";
+import models from "../models/index.js";
 
-import { pool } from "../commonComponents/dbPool.js";
-
-const { Pool } = pkg;
-const poolCreator = new Pool(pool);
-
-class CommentsController {
-  async getAllComments(req, res) {
-    const comments = await poolCreator.query(`SELECT * FROM comment`);
-    res.json(comments.rows);
+export const createComment = async (req, res) => {
+  try {
+    const { Comment } = models;
+    const user = await Comment.create(req.body);
+    return res.status(201).json({
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async getOneComment(req, res) {
-    const id = req.params.id;
-    const comment = await poolCreator.query(
-      `SELECT * FROM comment where id = $1`,
-      [id]
-    );
-    res.json(comment.rows[0]);
+export const getAllComments = async (req, res) => {
+  try {
+    const { Comment } = models;
+    const comments = await Comment.findAll();
+    return res.status(201).json(comments);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async deleteComment(req, res) {
-    const id = req.params.id;
-    const deletedComment = await poolCreator.query(
-      `DELETE FROM comment where id = $1`,
-      [id]
-    );
-    res.json(deletedComment.rows[0]);
+export const getOneComment = async (req, res) => {
+  try {
+    const { Comment } = models;
+    const comment = await Comment.findAll({ where: { id: req.params.id } });
+    return res.status(201).json(comment);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async createComment(req, res) {
-    const { post_id, user_id, name, email, body } = req.body;
-    const newComment = await poolCreator.query(
-      `INSERT INTO comment (post_id, user_id, name, email, body) values ($1, $2, $3, $4, $5) RETURNING *`,
-      [post_id, user_id, name, email, body]
-    );
-    res.json(newComment.rows[0]);
+export const deleteOneComment = async (req, res) => {
+  try {
+    const { Comment } = models;
+    await Comment.destroy({ where: { id: req.params.id } });
+    return res.status(201).json(req.params.id);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async updateComment(req, res) {
-    const { id, name, email, body } = req.body;
-    const updatedComment = await poolCreator.query(
-      `UPDATE comment set name = $1, email = $2, body = $3 where id = $4 RETURNING *`,
-      [name, email, body, id]
-    );
-    res.json(updatedComment.rows[0]);
+export const updateOneComment = async (req, res) => {
+  try {
+    const { Comment } = models;
+    await Comment.update(req.body, { where: { id: req.params.id } });
+    return res.status(201).json(req.params.id);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
-}
-
-export default new CommentsController();
+};

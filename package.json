@@ -7,20 +7,42 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "fast-csv": "^4.3.6",
-    "pg": "^8.7.3"
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.7.3",
+    "sequelize": "^6.19.0",
+    "sequelize-auto-migrations-v2": "^1.2.1",
+    "sqlite3": "^5.0.8"
   },
   "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/node": "^7.14.9",
+    "@babel/preset-env": "^7.15.0",
+    "babel-register": "^6.26.0",
+    "bcrypt": "^5.0.1",
+    "cls-hooked": "^4.2.2",
+    "express-validator": "^6.14.1",
     "nodemon": "^2.0.15",
-    "prettier": "^2.6.2"
+    "prettier": "^2.6.2",
+    "sequelize-cli": "^6.4.1"
   },
   "scripts": {
+    "dev": "NODE_ENV=development nodemon --exec babel-node src/server.js",
+    "build": "babel ./src --out-dir ./dist",
     "create-db": "psql -U postgres < src/schema.sql",
-    "seed": "npm run create-db && node src/db.js",
     "start": "node src/server.js",
-    "nodemon": "nodemon src/server.js"
+    "nodemon": "nodemon src/server.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "undo-migrate": "npx sequelize-cli db:migrate:undo:all",
+    "seed": "npx sequelize-cli db:seed:all",
+    "undo-seed": "npx sequelize-cli db:seed:undo:all",
+    "all": "npx sequelize-cli db:seed:undo:all && npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   }
 }

@@ -1,53 +1,101 @@
-import pkg from "pg";
+import models from "../models/index.js";
 
-import { pool } from "../commonComponents/dbPool.js";
+export const createUser = async (req, res) => {
+  const allCompanies = req.body.companies;
 
-const { Pool } = pkg;
-const poolCreator = new Pool(pool);
+  try {
+    const { User, Company, UsersCompanies } = models;
 
-class UsersController {
-  async getAllUsers(req, res) {
-    const allUsers = await poolCreator.query(
-      `SELECT *, array(SELECT row_to_json(company) FROM company WHERE company.id IN (SELECT company_person.company_id FROM company_person WHERE company_person.user_id = person.id)) AS companies FROM person`
-    );
-    res.json(allUsers.rows);
+    const user = await User.create({
+      ...req.body,
+      catchPhrase: req.body.catchPhrase,
+      bs: req.body.bs,
+    });
+    for (const item of allCompanies) {
+      const [company] = await Company.findOrCreate({
+        where: { name: item.name, catchPhrase: item.catchPhrase, bs: item.bs },
+        defaults: {
+          name: item.name,
+          // catchPhrase: item.catchPhrase,
+          // bs: item.bs,
+        },
+      });
+
+      await UsersCompanies.create({
+        ...req.body,
+        user_id: user.id,
+        company_id: company.id,
+      });
+    }
+
+    return res.status(201).json({
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async getOneUser(req, res) {
-    const id = req.params.id;
-    const oneUser = await poolCreator.query(
-      `SELECT *, array(SELECT row_to_json(company) FROM company WHERE company.id IN (SELECT company_person.company_id FROM company_person WHERE company_person.user_id = person.id)) AS companies FROM person where id = $1`,
-      [id]
-    );
-    res.json(oneUser.rows[0]);
+export const getAllUsers = async (req, res) => {
+  try {
+    const { User, Company } = models;
+    const users = await User.findAll({
+      include: [
+        {
+          model: Company,
+          as: "companies",
+          attributes: ["id", "name", "catchPhrase", "bs"],
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+    });
+    return res.status(201).json(users);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async createUser(req, res) {
-    const { name, username, email, address, phone, website } = req.body;
-    const newUser = await poolCreator.query(
-      `INSERT INTO person (name, username, email, address, phone, website) values ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [name, username, email, address, phone, website]
-    );
-    res.json(newUser.rows[0]);
+export const getOneUser = async (req, res) => {
+  try {
+    const { User, Company } = models;
+    const user = await User.findAll({
+      where: { id: req.params.id },
+      include: [
+        {
+          model: Company,
+          as: "companies",
+          attributes: ["id", "name", "catchPhrase", "bs"],
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+    });
+    return res.status(201).json(user);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async updateUser(req, res) {
-    const { id, name, username, email, address, phone, website } = req.body;
-    const updatedUser = await poolCreator.query(
-      `UPDATE person set name = $1, username = $2, email = $3, address = $4, phone = $5, website = $6 where id = $7 RETURNING *`,
-      [name, username, email, address, phone, website, id]
-    );
-    res.json(updatedUser.rows[0]);
+export const deleteOneUser = async (req, res) => {
+  try {
+    const { User } = models;
+    await User.destroy({ where: { id: req.params.id } });
+    return res.status(201).json(req.params.id);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async deleteUser(req, res) {
-    const id = req.params.id;
-    const deletedUser = await poolCreator.query(
-      `DELETE FROM person where id = $1`,
-      [id]
-    );
-    res.json(deletedUser.rows[0]);
+export const updateOneUser = async (req, res) => {
+  try {
+    const { User } = models;
+    await User.update(req.body, { where: { id: req.params.id } });
+    return res.status(201).json(req.params.id);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
-}
-
-export default new UsersController();
+};

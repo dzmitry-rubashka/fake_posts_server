@@ -1,51 +1,53 @@
-import pkg from "pg";
+import models from "../models/index.js";
 
-import { pool } from "../commonComponents/dbPool.js";
-
-const { Pool } = pkg;
-const poolCreator = new Pool(pool);
-
-class PostsController {
-  async getAllPosts(req, res) {
-    const allPosts = await poolCreator.query(`SELECT * FROM post`);
-    res.json(allPosts.rows);
+export const createPost = async (req, res) => {
+  try {
+    const { Post } = models;
+    const user = await Post.create(req.body);
+    return res.status(201).json({
+      user,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async getOnePost(req, res) {
-    const id = req.params.id;
-    const onePost = await poolCreator.query(
-      `SELECT * FROM post where id = $1`,
-      [id]
-    );
-    res.json(onePost.rows[0]);
+export const getAllPosts = async (req, res) => {
+  try {
+    const { Post } = models;
+    const posts = await Post.findAll();
+    return res.status(201).json(posts);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async createPost(req, res) {
-    const { user_id, title, body } = req.body;
-    const newPost = await poolCreator.query(
-      `INSERT INTO post (user_id, title, body) values ($1, $2, $3) RETURNING *`,
-      [user_id, title, body]
-    );
-    res.json(newPost.rows[0]);
+export const getOnePost = async (req, res) => {
+  try {
+    const { Post } = models;
+    const post = await Post.findAll({ where: { id: req.params.id } });
+    return res.status(201).json(post);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async updatePost(req, res) {
-    const { id, title, body } = req.body;
-    const updatedPost = await poolCreator.query(
-      `UPDATE post set title = $1, body = $2 where id = $3 RETURNING *`,
-      [title, body, id]
-    );
-    res.json(updatedPost.rows[0]);
+export const deleteOnePost = async (req, res) => {
+  try {
+    const { Post } = models;
+    await Post.destroy({ where: { id: req.params.id } });
+    return res.status(201).json(req.params.id);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async deletePost(req, res) {
-    const id = req.params.id;
-    const deletedPost = await poolCreator.query(
-      `DELETE FROM post where id = $1`,
-      [id]
-    );
-    res.json(deletedPost.rows[0]);
+export const updateOnePost = async (req, res) => {
+  try {
+    const { Post } = models;
+    await Post.update(req.body, { where: { id: req.params.id } });
+    return res.status(201).json(req.params.id);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
-}
-
-export default new PostsController();
+};

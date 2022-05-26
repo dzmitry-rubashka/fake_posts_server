@@ -1,13 +1,17 @@
-import Router from "express";
+import { Router } from "express";
 
-import CompaniesController from "../controllers/companiesController.js";
+import {
+  createCompany,
+  getAllCompanies,
+  getOneCompany,
+  deleteOneCompany,
+  updateOneCompany,
+} from "../controllers/companiesController.js";
 
 const router = new Router();
-
-router.post("/companies", CompaniesController.createCompany);
-router.get("/companies", CompaniesController.getAllCompanies);
-router.get("/companies/:id", CompaniesController.getOneCompany);
-router.put("/companies", CompaniesController.updateCompany);
-router.delete("/companies/:id", CompaniesController.deleteCompany);
-
+router.post("/companies", createCompany);
+router.get("/companies", getAllCompanies);
+router.get("/companies/:id", getOneCompany);
+router.delete("/companies/:id", deleteOneCompany);
+router.put("/companies/:id", updateOneCompany);
 export default router;

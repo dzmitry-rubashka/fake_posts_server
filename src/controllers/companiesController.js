@@ -1,51 +1,53 @@
-import pkg from "pg";
+import models from "../models/index.js";
 
-import { pool } from "../commonComponents/dbPool.js";
-
-const { Pool } = pkg;
-const poolCreator = new Pool(pool);
-
-class CompaniesController {
-  async getAllCompanies(req, res) {
-    const companies = await poolCreator.query(`SELECT * FROM company`);
-    res.json(companies.rows);
+export const createCompany = async (req, res) => {
+  try {
+    const { Company } = models;
+    const company = await Company.create(req.body);
+    return res.status(201).json({
+      company,
+    });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async getOneCompany(req, res) {
-    const id = req.params.id;
-    const company = await poolCreator.query(
-      `SELECT * FROM company where id = $1`,
-      [id]
-    );
-    res.json(company.rows[0]);
+export const getAllCompanies = async (req, res) => {
+  try {
+    const { Company } = models;
+    const companies = await Company.findAll();
+    return res.status(201).json(companies);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async deleteCompany(req, res) {
-    const id = req.params.id;
-    const company = await poolCreator.query(
-      `DELETE FROM company where id = $1`,
-      [id]
-    );
-    res.json(company.rows[0]);
+export const getOneCompany = async (req, res) => {
+  try {
+    const { Company } = models;
+    const company = await Company.findAll({ where: { id: req.params.id } });
+    return res.status(201).json(company);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async createCompany(req, res) {
-    const { name, catchphrase, bs } = req.body;
-    const newCompany = await poolCreator.query(
-      `INSERT INTO company (name, catchphrase, bs) values ($1, $2, $3) RETURNING *`,
-      [name, catchphrase, bs]
-    );
-    res.json(newCompany.rows[0]);
+export const deleteOneCompany = async (req, res) => {
+  try {
+    const { Company } = models;
+    await Company.destroy({ where: { id: req.params.id } });
+    return res.status(201).json(req.params.id);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  async updateCompany(req, res) {
-    const { name, catchphrase, bs, id } = req.body;
-    const updatedCompany = await poolCreator.query(
-      `UPDATE company set name = $1, catchphrase = $2, bs = $3 where id = $4 RETURNING *`,
-      [name, catchphrase, bs, id]
-    );
-    res.json(updatedCompany.rows[0]);
+export const updateOneCompany = async (req, res) => {
+  try {
+    const { Company } = models;
+    await Company.update(req.body, { where: { id: req.params.id } });
+    return res.status(201).json(req.params.id);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
-}
-
-export default new CompaniesController();
+};
