@@ -1,9 +1,12 @@
 import models from "../models/index.js";
+import jwt from "jsonwebtoken";
+
 
 export const createUser = async (req, res) => {
   const allCompanies = req.body.companies;
 
   try {
+    jwt.verify(req.cookies['Auth'], 'some_secret_key')
     const { User, Company, UsersCompanies } = models;
 
     const user = await User.create({
@@ -16,8 +19,8 @@ export const createUser = async (req, res) => {
         where: { name: item.name, catchPhrase: item.catchPhrase, bs: item.bs },
         defaults: {
           name: item.name,
-          // catchPhrase: item.catchPhrase,
-          // bs: item.bs,
+          catchPhrase: item.catchPhrase,
+          bs: item.bs,
         },
       });
 
@@ -32,13 +35,16 @@ export const createUser = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.log(error);
+    if (error.message === 'jwt malformed' || error.message === 'jwt must be provided') {
+      return res.status(403).json({ error: 'jwt malformed - invalid auth' });
+    }
     return res.status(500).json({ error: error.message });
   }
 };
 
 export const getAllUsers = async (req, res) => {
   try {
+    jwt.verify(req.cookies['Auth'], 'some_secret_key')
     const { User, Company } = models;
     const users = await User.findAll({
       include: [
@@ -54,12 +60,16 @@ export const getAllUsers = async (req, res) => {
     });
     return res.status(201).json(users);
   } catch (error) {
+    if (error.message === 'jwt malformed' || error.message === 'jwt must be provided') {
+      return res.status(403).json({ error: 'jwt malformed - invalid auth' });
+    }
     return res.status(500).json({ error: error.message });
   }
 };
 
 export const getOneUser = async (req, res) => {
   try {
+    jwt.verify(req.cookies['Auth'], 'some_secret_key')
     const { User, Company } = models;
     const user = await User.findAll({
       where: { id: req.params.id },
@@ -76,26 +86,37 @@ export const getOneUser = async (req, res) => {
     });
     return res.status(201).json(user);
   } catch (error) {
+    if (error.message === 'jwt malformed' || error.message === 'jwt must be provided') {
+      return res.status(403).json({ error: 'jwt malformed - invalid auth' });
+    }
     return res.status(500).json({ error: error.message });
   }
 };
 
 export const deleteOneUser = async (req, res) => {
   try {
+    jwt.verify(req.cookies['Auth'], 'some_secret_key')
     const { User } = models;
     await User.destroy({ where: { id: req.params.id } });
     return res.status(201).json(req.params.id);
   } catch (error) {
+    if (error.message === 'jwt malformed' || error.message === 'jwt must be provided') {
+      return res.status(403).json({ error: 'jwt malformed - invalid auth' });
+    }
     return res.status(500).json({ error: error.message });
   }
 };
 
 export const updateOneUser = async (req, res) => {
   try {
+    jwt.verify(req.cookies['Auth'], 'some_secret_key')
     const { User } = models;
     await User.update(req.body, { where: { id: req.params.id } });
     return res.status(201).json(req.params.id);
   } catch (error) {
+    if (error.message === 'jwt malformed' || error.message === 'jwt must be provided') {
+      return res.status(403).json({ error: 'jwt malformed - invalid auth' });
+    }
     return res.status(500).json({ error: error.message });
   }
 };
