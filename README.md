@@ -1,42 +1,14 @@
-# Fake Posts (project server)
+# Fake Posts Server
 
-The server for the Fake Posts Project app is used to store data
+> - Before starting server and connecting it to the database, create in the root folder `.env` file with variables definition according this example file [Link to .env.example](./.env.example). You can copy the content of this file to your own .env file and enter the variables values. After this the server will be able to start with your own local variables.
 
-![project](https://nytweb.com/wp-content/themes/nytweb/dist/images/server_word_title.png)
+### How to run server in development mode:
 
-## Stack
-JavaScript, Express
+> - Install all dependencies by running `npm install` command from root folder
+> - To run the server use command `npm run nodemon` and after the server will be started on [http://localhost:3001](http://localhost:3001)
 
-## Contributing
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement". Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
-3. Commit your Changes (git commit -m 'Add some AmazingFeature')
-4. Push to the Branch (git push origin feature/AmazingFeature)
-5. Open a Pull Request
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the server in the development mode.\
-Open your local server to view it in your browser.
-
-### `npm run create-db`
-
-Database creating.
-
-### `npm run seed`
-
-Database creating and data seeding.
-
-### Author
-Github: @dmitryrubashko
+### How to create database in development mode
+> - To create database run `npm run create-db` from root folder and this script will create local database
+> - To create tables in the database run `npm run migrate` from root folder and this script will create tables
+> - To add data in the database run `npm run seed` from root folder and this script will create some data from seeds files
+> - You can also undo migrates and seeds running `npm run undo-migrate` or `npm run undo-seed` accordingly
